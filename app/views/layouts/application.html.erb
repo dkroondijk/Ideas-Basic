@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IdeaQuiz</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <div class="container header">
+      <%= image_tag "https://pbs.twimg.com/profile_images/378800000407550507/cc18ca42b18803f6c8c3dbf09b28a60b_400x400.jpeg", class: "logo" %>
+      <h3>Idea Factory</h3>
+    </div>
+
+    <div class="container">
+      <h5><%= link_to "All Ideas", root_path %></h5>
+    </div>
+    <div class="user-info">
+      <% if user_signed_in? %>
+        Hello <%= current_user.first_name %>
+        <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+      <% else %>
+      <%= link_to "Sign In", new_user_session_path %> |
+      <%= link_to "Register", new_user_registration_path %>
+      <% end %>
+    </div>
+    <div class="container">
+      <%#= link_to "New Idea", new_idea_path, class: "btn btn-primary" %>
+      <button id="new-idea" class="btn btn-primary">New Idea</button>
+    </div
+
+    <div class="container notice"><%= flash[:notice] || flash[:alert] %></div>
+
+    <hr>
+
+    <div class="container">
+      <%= yield %>
+    </div>
+
+  </body>
+</html>

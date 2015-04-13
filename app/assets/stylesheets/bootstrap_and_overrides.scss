@@ -1,0 +1,30 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+@import "font-awesome";
+
+.logo {
+  height: 100px;
+
+}
+
+.notice {
+  display: inline-block;
+  width: 70vw;
+  float: left;
+}
+
+.idea-image {
+  width: 25%;
+}
+
+.user-info {
+  display: inline-block;
+  float: right;
+  margin-right: 200px;
+}
+
+.header {
+  /* display: inline-block;
+  float: left; */
+}

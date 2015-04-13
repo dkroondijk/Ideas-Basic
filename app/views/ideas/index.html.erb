@@ -1,0 +1,48 @@
+<div class="new-idea-form">
+  <h1>New Idea</h1>
+
+  <%= form_for @idea do |f| %>
+    <div class="form-group">
+      <%= f.label :title %>
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :body %>
+      <%= f.text_area :body, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :image, "Post Image" %>
+      <%= f.file_field :image %>
+    </div>
+    <div class="form-group">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>
+
+<h1>Ideas</h1>
+
+<% @ideas.each do |idea| %>
+  <h3><%= link_to idea.title, idea_path(idea) %></h3>
+  <p><%= idea.body %></p>
+  <p>By </p><%= idea.user.first_name %>
+
+  <% if idea.user != current_user %>
+    <% join = idea.joins.find_by_user_id(current_user) if current_user %>
+      <% if join %>
+        <%= link_to "Joined", idea_join_path(idea, join), method: :delete, class: "btn btn-info" %>
+      <% else %>
+        <%= link_to "Join", idea_joins_path(idea), method: :post, class: "btn btn-primary" %>
+      <% end %>
+
+    <% like = idea.likes.find_by_user_id(current_user) if current_user %>
+      <% if like %>
+        <%= link_to fa_icon("thumbs-up"), idea_like_path(idea, like), method: :delete %>
+      <% else %>
+        <%= link_to fa_icon("thumbs-o-up"), idea_likes_path(idea), method: :post %>
+      <% end %>
+  <% end %>
+
+  Members: <%= idea.joins.count %> | Likes: <%= idea.likes.count %>
+  <hr>
+<% end %>
